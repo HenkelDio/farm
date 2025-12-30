@@ -107,7 +107,7 @@ function buySeed(type, price) {
     color: 'green-7',
     textColor: 'white',
     icon: 'spa',
-    message: `Semente de ${type} adicionada ao invetário`,
+    message: `Semente de ${type} adicionada ao inventário`,
     timeout: 1500,
   })
 }

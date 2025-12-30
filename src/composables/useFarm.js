@@ -55,7 +55,7 @@ const state = reactive({
       id: 3,
       text: 'Expanda a fazenda 🌍',
       type: 'land',
-      goal: 15,
+      goal: 14,
       progress: 0,
       done: false,
       letter: 'Como essa fazenda, minha vida ficou muito melhor ao seu cuidado',

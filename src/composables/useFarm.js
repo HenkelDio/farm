@@ -7,8 +7,8 @@ const { play } = useSound()
 const BASE_GROW_TIME = 10000
 const MAX_LANDS = 15
 const BASE_LAND_PRICE = 3
-const BASE_PERK_PRICE = 20
-const MAX_PERKS = 1
+const BASE_PERK_PRICE = 1
+const MAX_PERKS = 3
 
 const state = reactive({
   growTime: BASE_GROW_TIME,
@@ -93,7 +93,7 @@ function harvest(index) {
     cenoura: 2,
     morango: 6,
     milho: 8,
-    abobora: 15,
+    abobora: 20,
   }
 
   state.coins += values[tile.seed] || 1
@@ -145,6 +145,7 @@ function buyPerk() {
   if (state.unlockedPerks >= MAX_PERKS) return
 
   state.coins -= state.perkPrice
+  state.perkPrice *= 2
   state.unlockedPerks++
   state.growTime = Math.max(2000, state.growTime * 0.5)
 

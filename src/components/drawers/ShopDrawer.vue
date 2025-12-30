@@ -63,7 +63,7 @@ const seeds = [
   { type: 'cenoura', name: 'Cenoura', icon: '🥕', price: 1 },
   { type: 'morango', name: 'Morango', icon: '🍓', price: 4 },
   { type: 'milho', name: 'Milho', icon: '🌽', price: 6 },
-  { type: 'abobora', name: 'Abóbora', icon: '🎃', price: 10 },
+  { type: 'abobora', name: 'Abóbora', icon: '🎃', price: 12 },
 ]
 
 const { play } = useSound()

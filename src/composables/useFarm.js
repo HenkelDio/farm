@@ -7,7 +7,7 @@ const { play } = useSound()
 const BASE_GROW_TIME = 10000
 const MAX_LANDS = 15
 const BASE_LAND_PRICE = 3
-const BASE_PERK_PRICE = 1
+const BASE_PERK_PRICE = 20
 const MAX_PERKS = 3
 
 const state = reactive({

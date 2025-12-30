@@ -1,0 +1,57 @@
+<template>
+  <q-dialog v-model="model" maximized transition-show="slide-up">
+    <q-card>
+      <q-toolbar class="bg-green-8 text-white">
+        <q-btn flat icon="close" @click="model = false" />
+        <q-toolbar-title>🛒 Loja</q-toolbar-title>
+      </q-toolbar>
+
+      <q-card-section>
+        <q-list bordered>
+          <!-- 🌱 SEMENTES -->
+          <q-item>
+            <q-item-section class="text-bold">🌱 Sementes</q-item-section>
+          </q-item>
+
+          <q-item v-for="seed in seeds" :key="seed.type" :disable="state.coins < seed.price">
+            <q-item-section> {{ seed.icon }} {{ seed.name }} </q-item-section>
+            <q-item-section side> {{ seed.price }} 💰 </q-item-section>
+            <q-item-section side>
+              <q-btn color="green" label="Comprar" @click="buySeed(seed.type, seed.price)" />
+            </q-item-section>
+          </q-item>
+
+          <!-- 🟫 TERRA -->
+          <q-separator class="q-my-md" />
+
+          <q-item :disable="state.coins < state.landPrice">
+            <q-item-section> 🟫 Nova Terra </q-item-section>
+            <q-item-section side> {{ state.landPrice }} 💰 </q-item-section>
+            <q-item-section side>
+              <q-btn
+                color="brown"
+                label="Comprar"
+                :disable="state.unlockedLands >= 15"
+                @click="buyLand"
+              />
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+</template>
+
+<script setup>
+import { useFarm } from 'src/composables/useFarm'
+
+const model = defineModel()
+const { state, buySeed, buyLand } = useFarm()
+
+const seeds = [
+  { type: 'cenoura', name: 'Cenoura', icon: '🥕', price: 1 },
+  { type: 'morango', name: 'Morango', icon: '🍓', price: 2 },
+  { type: 'milho', name: 'Milho', icon: '🌽', price: 3 },
+  { type: 'abobora', name: 'Abóbora', icon: '🎃', price: 4 },
+]
+</script>

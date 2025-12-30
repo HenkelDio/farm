@@ -1,5 +1,8 @@
 import { reactive, computed } from 'vue'
 import { Notify } from 'quasar'
+import { useSound } from 'src/composables/useSound'
+
+const { play } = useSound()
 
 const BASE_GROW_TIME = 10000
 const MAX_LANDS = 15
@@ -75,6 +78,7 @@ function plant(index, seed) {
   }
 
   updateMission('plant')
+  play('plant.mp3')
 }
 
 /* 🌾 Colher */
@@ -87,13 +91,14 @@ function harvest(index) {
   // valor por tipo
   const values = {
     cenoura: 2,
-    morango: 4,
-    milho: 6,
-    abobora: 8,
+    morango: 6,
+    milho: 8,
+    abobora: 15,
   }
 
   state.coins += values[tile.seed] || 1
   updateMission('harvest')
+  play('harvest.mp3')
 }
 
 /* 🛒 Comprar semente */
@@ -102,6 +107,8 @@ function buySeed(type, price) {
   state.coins -= price
   state.seeds[type]++
   updateMission('land')
+
+  play('buy.mp3')
 
   Notify.create({
     color: 'green-7',
@@ -123,6 +130,8 @@ function buyLand() {
   // dobra o preço
   state.landPrice *= 2
 
+  play('buy.mp3')
+
   Notify.create({
     color: 'green-7',
     textColor: 'white',
@@ -139,6 +148,8 @@ function buyPerk() {
   state.coins -= state.perkPrice
   state.unlockedPerks++
   state.growTime = Math.max(2000, state.growTime * 0.5)
+
+  play('buy.mp3')
 
   Notify.create({
     color: 'green-7',
@@ -179,6 +190,7 @@ function completeMission(id) {
 
   mission.done = true
   state.activeLetter = mission.letter
+  play('complete.mp3')
 }
 
 export function useFarm() {

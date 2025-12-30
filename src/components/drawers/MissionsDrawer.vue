@@ -2,7 +2,7 @@
   <q-dialog v-model="model" maximized transition-show="slide-up">
     <q-card>
       <q-toolbar class="bg-green-8 text-white">
-        <q-btn flat icon="close" @click="model = false" />
+        <q-btn flat icon="close" @click="onClose()" />
         <q-toolbar-title>📜 Missões</q-toolbar-title>
       </q-toolbar>
 
@@ -37,7 +37,14 @@
 
 <script setup>
 import { useFarm } from 'src/composables/useFarm'
+import { useSound } from 'src/composables/useSound'
 
 const model = defineModel()
 const { state, completeMission } = useFarm()
+
+const { play } = useSound()
+function onClose() {
+  model.value = false
+  play('tap.mp3')
+}
 </script>

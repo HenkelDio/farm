@@ -2,7 +2,7 @@
   <q-dialog v-model="model" maximized transition-show="slide-up">
     <q-card>
       <q-toolbar class="bg-green-8 text-white">
-        <q-btn flat icon="close" @click="model = false" />
+        <q-btn flat icon="close" @click="onClose()" />
         <q-toolbar-title>🛒 Loja</q-toolbar-title>
       </q-toolbar>
 
@@ -54,14 +54,21 @@
 
 <script setup>
 import { useFarm } from 'src/composables/useFarm'
+import { useSound } from 'src/composables/useSound'
 
 const model = defineModel()
 const { state, buySeed, buyLand, buyPerk, MAX_PERKS } = useFarm()
 
 const seeds = [
   { type: 'cenoura', name: 'Cenoura', icon: '🥕', price: 1 },
-  { type: 'morango', name: 'Morango', icon: '🍓', price: 2 },
-  { type: 'milho', name: 'Milho', icon: '🌽', price: 3 },
-  { type: 'abobora', name: 'Abóbora', icon: '🎃', price: 4 },
+  { type: 'morango', name: 'Morango', icon: '🍓', price: 4 },
+  { type: 'milho', name: 'Milho', icon: '🌽', price: 6 },
+  { type: 'abobora', name: 'Abóbora', icon: '🎃', price: 10 },
 ]
+
+const { play } = useSound()
+function onClose() {
+  model.value = false
+  play('tap.mp3')
+}
 </script>

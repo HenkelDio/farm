@@ -6,17 +6,23 @@
     </div>
 
     <div class="row justify-around">
-      <div class="column items-center cursor-pointer" @click="shop = true">
+      <div class="column items-center cursor-pointer" @click="((shop = true), play('click.mp3'))">
         <q-icon name="store" size="3rem" />
         <div class="text-caption">Loja</div>
       </div>
 
-      <div class="column items-center cursor-pointer" @click="inventory = true">
+      <div
+        class="column items-center cursor-pointer"
+        @click="((inventory = true), play('click.mp3'))"
+      >
         <q-icon name="backpack" size="3rem" />
         <div class="text-caption">Inventário</div>
       </div>
 
-      <div class="column items-center cursor-pointer" @click="missions = true">
+      <div
+        class="column items-center cursor-pointer"
+        @click="((missions = true), play('click.mp3'))"
+      >
         <q-icon name="assignment" size="3rem" />
         <div class="text-caption">Missões</div>
       </div>
@@ -35,6 +41,7 @@ import { useFarm } from 'src/composables/useFarm'
 import ShopDrawer from './drawers/ShopDrawer.vue'
 import InventoryDrawer from './drawers/InventoryDrawer.vue'
 import MissionsDrawer from './drawers/MissionsDrawer.vue'
+import { useSound } from 'src/composables/useSound'
 
 const { state } = useFarm()
 
@@ -43,4 +50,6 @@ const inventory = ref(false)
 const missions = ref(false)
 
 const totalSeeds = computed(() => Object.values(state.seeds).reduce((a, b) => a + b, 0))
+
+const { play } = useSound()
 </script>

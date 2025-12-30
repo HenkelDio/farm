@@ -18,6 +18,7 @@
 import { ref } from 'vue'
 import FarmTile from './FarmTile.vue'
 import PlantDrawer from './drawers/PlantDrawer.vue'
+import { useSound } from 'src/composables/useSound'
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
@@ -26,12 +27,15 @@ const props = defineProps({
   growTime: Number,
 })
 
+const { play } = useSound()
+
 const emit = defineEmits(['plant', 'harvest'])
 
 const plantDrawer = ref(false)
 const selectedIndex = ref(null)
 
 function openPlantDrawer(index) {
+  play('click.mp3')
   selectedIndex.value = index
   plantDrawer.value = true
 }

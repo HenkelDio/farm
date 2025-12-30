@@ -106,7 +106,6 @@ function buySeed(type, price) {
   if (state.coins < price) return
   state.coins -= price
   state.seeds[type]++
-  updateMission('land')
 
   play('buy.mp3')
 
@@ -129,7 +128,7 @@ function buyLand() {
 
   // dobra o preço
   state.landPrice *= 2
-
+  updateMission('land')
   play('buy.mp3')
 
   Notify.create({

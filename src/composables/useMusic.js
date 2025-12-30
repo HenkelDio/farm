@@ -3,7 +3,7 @@ import { ref } from 'vue'
 let bgm = null
 
 const isPlaying = ref(false)
-const volume = ref(0.4)
+const volume = ref(0.3)
 
 export function useMusic() {
   function init() {

@@ -36,6 +36,16 @@
               />
             </q-item-section>
           </q-item>
+
+          <q-separator class="q-my-md" />
+
+          <q-item :disable="state.coins < state.perkPrice || state.unlockedPerks == MAX_PERKS">
+            <q-item-section> ⏱️ Diminuir tempo de coleta </q-item-section>
+            <q-item-section side> {{ state.perkPrice }} 💰 </q-item-section>
+            <q-item-section side>
+              <q-btn color="brown" label="Comprar" @click="buyPerk" />
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-card-section>
     </q-card>
@@ -46,7 +56,7 @@
 import { useFarm } from 'src/composables/useFarm'
 
 const model = defineModel()
-const { state, buySeed, buyLand } = useFarm()
+const { state, buySeed, buyLand, buyPerk, MAX_PERKS } = useFarm()
 
 const seeds = [
   { type: 'cenoura', name: 'Cenoura', icon: '🥕', price: 1 },

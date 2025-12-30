@@ -1,10 +1,15 @@
 import { reactive, computed } from 'vue'
+import { Notify } from 'quasar'
 
-const GROW_TIME = 10000
+const BASE_GROW_TIME = 10000
 const MAX_LANDS = 15
 const BASE_LAND_PRICE = 3
+const BASE_PERK_PRICE = 20
+const MAX_PERKS = 1
 
 const state = reactive({
+  growTime: BASE_GROW_TIME,
+
   coins: 5,
 
   // sementes por tipo
@@ -17,6 +22,8 @@ const state = reactive({
 
   unlockedLands: 1,
   landPrice: BASE_LAND_PRICE,
+  perkPrice: BASE_PERK_PRICE,
+  unlockedPerks: 0,
 
   farm: Array.from({ length: MAX_LANDS }, () => null),
 
@@ -95,6 +102,14 @@ function buySeed(type, price) {
   state.coins -= price
   state.seeds[type]++
   updateMission('land')
+
+  Notify.create({
+    color: 'green-7',
+    textColor: 'white',
+    icon: 'spa',
+    message: `Semente de ${type} adicionada ao invetário`,
+    timeout: 1500,
+  })
 }
 
 /* 🟫 Comprar terra (preço dobra) */
@@ -107,6 +122,31 @@ function buyLand() {
 
   // dobra o preço
   state.landPrice *= 2
+
+  Notify.create({
+    color: 'green-7',
+    textColor: 'white',
+    icon: 'spa',
+    message: `Nova terra adicionada`,
+    timeout: 1500,
+  })
+}
+
+function buyPerk() {
+  if (state.coins < state.perkPrice) return
+  if (state.unlockedPerks >= MAX_PERKS) return
+
+  state.coins -= state.perkPrice
+  state.unlockedPerks++
+  state.growTime = Math.max(2000, state.growTime * 0.5)
+
+  Notify.create({
+    color: 'green-7',
+    textColor: 'white',
+    icon: 'spa',
+    message: `Tempo reduzido para 5 segundos`,
+    timeout: 1500,
+  })
 }
 
 /* 📊 Total de sementes */
@@ -116,7 +156,7 @@ const totalSeeds = computed(() => Object.values(state.seeds).reduce((a, b) => a 
 setInterval(() => {
   state.farm.forEach((tile, i) => {
     if (tile && tile.stage === 'planted') {
-      if (Date.now() - tile.plantedAt >= GROW_TIME) {
+      if (Date.now() - tile.plantedAt >= state.growTime) {
         state.farm[i].stage = 'grown'
       }
     }
@@ -149,8 +189,9 @@ export function useFarm() {
     buySeed,
     buyLand,
     totalSeeds,
-    GROW_TIME,
     completeMission,
     updateMission,
+    buyPerk,
+    MAX_PERKS,
   }
 }

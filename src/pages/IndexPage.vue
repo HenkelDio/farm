@@ -5,7 +5,7 @@
     <FarmGrid
       :farm="state.farm"
       :unlocked-lands="state.unlockedLands"
-      :grow-time="GROW_TIME"
+      :grow-time="state.growTime"
       @plant="plant"
       @harvest="harvest"
     />
@@ -25,7 +25,7 @@ import LoveLetterDialog from 'src/components/LoveLetterDialog.vue'
 import { useFarm } from 'src/composables/useFarm'
 import { ref, watch } from 'vue'
 
-const { state, plant, harvest, GROW_TIME } = useFarm()
+const { state, plant, harvest } = useFarm()
 
 const loveLetterOpen = ref(false)
 
